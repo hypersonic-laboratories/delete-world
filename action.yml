@@ -1,0 +1,24 @@
+name: 'Delete Helix World'
+description: 'Deletes a Helix world automatically'
+inputs:
+  access_token:
+    description: 'Access token for authentication. Can be generated at Account -> Settings'
+    required: true
+  world_name:
+    description: 'Name of the world to upload. Make sure you already have this world created. If not set a world will be created'
+    required: true
+    default: ''
+  master_endpoint:
+    description: 'Defaults to https://api.helixgame.com/v1'
+    required: false
+    default: 'https://api.helixgame.com/v1'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Delete World
+      shell: bash
+      env:
+        WORLD_NAME: ${{ inputs.world_name }}
+      run: |
+        response=$(curl --location --request DELETE "${MASTER_ENDPOINT}/world/${WORLD_NAME}" --header "Token: ${ACCESS_TOKEN}")

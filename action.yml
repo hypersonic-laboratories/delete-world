@@ -5,9 +5,8 @@ inputs:
     description: 'Access token for authentication. Can be generated at Account -> Settings'
     required: true
   world_name:
-    description: 'Name of the world to upload. Make sure you already have this world created. If not set a world will be created'
+    description: 'Name of the world to upload. Make sure you already have this world created.'
     required: true
-    default: ''
   master_endpoint:
     description: 'Defaults to https://api.helixgame.com/v1'
     required: false

@@ -19,6 +19,8 @@ runs:
     - name: Delete World
       shell: bash
       env:
+        ACCESS_TOKEN: ${{ inputs.access_token }}
+        MASTER_ENDPOINT: ${{ inputs.master_endpoint }}
         WORLD_NAME: ${{ inputs.world_name }}
       run: |
         response=$(curl --location --request DELETE "${MASTER_ENDPOINT}/world/${WORLD_NAME}" --header "Token: ${ACCESS_TOKEN}")

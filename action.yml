@@ -22,4 +22,10 @@ runs:
         MASTER_ENDPOINT: ${{ inputs.master_endpoint }}
         WORLD_NAME: ${{ inputs.world_name }}
       run: |
-        response=$(curl --location --request DELETE "${MASTER_ENDPOINT}/world/${WORLD_NAME}" --header "Token: ${ACCESS_TOKEN}")
+        response=$(curl "${MASTER_ENDPOINT}/world/${WORLD_NAME}" -X DELETE -H 'Accept: application/json, text/plain, */*' -H 'Accept-Language: en,en-US;q=0.5' --header "Token: ${ACCESS_TOKEN}")
+        code=$(echo $response | jq -r '.code')
+        message=$(echo $response | jq -r '.message')
+        if [ "$code" != "0" ]; then
+          echo "Error: Server returned error code $code with message '$message'"
+          exit 1
+        fi
